@@ -28,11 +28,6 @@
 - [Documentation](#documentation)
   - [classifier.py](#classifierpy)
   - [training\_classifier.py](#training_classifierpy)
-    - [Shuffling:](#shuffling)
-    - [Class Weights Calculation:](#class-weights-calculation)
-    - [Model Initialization:](#model-initialization)
-    - [Logging and Checkpointing:](#logging-and-checkpointing)
-    - [Training:](#training)
   - [validation\_classifier.py](#validation_classifierpy)
 - [Acknowledgements](#acknowledgements)
 
@@ -44,7 +39,7 @@ Install python 3.10 and required libraries listed in ```requirements.txt```.
 
 ## Documentation
 
-The directory dataset/labels contains 3 CSV files, one for each health status: 1, 2, and 3+4 (we decided to merge classes 3 and 4 because they are less represented, thus balancing the dataset better):
+The directory ```dataset/labels``` contains 3 CSV files, one for each health status: 1, 2, and 3+4 (we decided to merge classes 3 and 4 because they are less represented, thus balancing the dataset better):
 
 Health Status total labels:
 |Label ID|Num Trees| Description |
@@ -79,7 +74,7 @@ It's important to note that while the images in the augmented datasets have alre
 
 ### classifier.py
 
-The ```classifier.py``` file contains the implementation of the DualYOLO class, a custom neural network model built using PyTorch and PyTorch Lightning. In addition to this main class, the file also defines the ```CustomDataset``` class, which is used for loading and preprocessing dataset images and labels.
+The ```classifier.py``` file contains the implementation of the ```DualYOLO``` class, a custom neural network model built using ```PyTorch``` and ```PyTorch Lightning```. In addition to this main class, the file also defines the ```CustomDataset``` class, which is used for loading and preprocessing dataset images and labels.
 
 The ```CustomDataset``` class is a subclass of ```torch.utils.data.Dataset``` and is designed to handle the loading of images and labels, both for training and validation of the model. It takes as parameters the paths to the CSV files containing labels (```health_dir_path```), NDVI images (```ndvi_path```), and RGB images (```rgb_path```). Additionally, you can specify the number of validation samples to extract from each CSV file (```val_samples_per_file```) and apply a series of transformations to the images via the transform object. The class also manages saving the validation set to a specified directory (```save_dir```).
 
@@ -100,22 +95,22 @@ Dataset and DataLoader Initialization:
 Defines the image directories and transformation pipelines: Paths to image data (including CSV labels, NDVI, and RGB images) are set, and a series of image transformations are applied to standardize the input size and format.
 Data Loading: The script creates instances of CustomDataset for training and ValDataset for validation, ensuring data is loaded efficiently and prepared for the model.
 
-#### Shuffling:
+Shuffling:
 ```DataLoader``` class shuffles the training set to ensure that the model does not learn the order of the data, and importantly, the validation set is also shuffled. This is because the labels are ordered, and without shuffling, this could cause issues in metric calculation, especially with metrics that have problems with division by zero (```zero_division``` errors).
 
-#### Class Weights Calculation:
+Class Weights Calculation:
 Handles class imbalance using ```compute_class_weight``` from sklearn: Class weights are calculated to counteract any imbalance in the dataset, ensuring that underrepresented classes are given appropriate importance during training.
 
-#### Model Initialization:
+Model Initialization:
 Initializes the ```DualYOLO``` model: The model is set up with specific configurations such as depth and width scaling, class weights, learning rate, and the number of output classes. These settings optimize the model architecture for the specific task and dataset.
 
 
-#### Logging and Checkpointing:
+Logging and Checkpointing:
 Configures TensorBoard and CSV loggers: These loggers track training progress, including loss and accuracy metrics, and save them for later visualization and analysis.
 Defines callbacks for model checkpoints: The script sets up callbacks to save the best model checkpoints based on validation loss, ensuring that only the most performant models are retained.
 
 
-#### Training:
+Training:
 Utilizes the PyTorch Lightning Trainer: The Trainer is configured to handle GPU acceleration, mixed precision training, and other settings that streamline the training process. The training loop is initiated, where the model is iteratively trained and evaluated on the validation set.
 
 ### validation_classifier.py
