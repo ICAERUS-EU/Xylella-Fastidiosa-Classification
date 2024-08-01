@@ -36,6 +36,8 @@ The code loads a custom dataset of images and CSV files, applies transformations
 
 ## Installation
 Install python 3.10 and required libraries listed in ```requirements.txt```.
+The dataset is avaible at https://zenodo.org/records/13120763
+The trained model is avaible at https://zenodo.org/records/13150032
 
 ## Documentation
 
