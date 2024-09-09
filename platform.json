@@ -1,0 +1,31 @@
+{  "title":"Xylella Fastidiosa Classification",
+  "creator": "TAAL",
+  "date": "1/8/2024",
+  "icon":"https://github.com/ICAERUS-EU/Xylella-Fastidiosa-Classification/ico.jpg?raw=true",
+  "url": "https://github.com/ICAERUS-EU/Xylella-Fastidiosa-Classification",
+  "icaerus_applications": ["crop-monitoring"],
+  "uses_cases":["OCT"],
+  "extra":{
+      "usage/description": "Training and validation of a classifier for Xylella Fastidiosa in olive trees."
+  },
+  "filters":{
+      "content": [
+          "Vegetation Index",
+          "Orthomosaic processing toolbox"
+          ],  
+      "data-type": [
+          "Multispectral images",
+          "RGB images",
+          "Orthomosaic"
+      ], 
+
+      "subject": [
+          "Disease detection",
+        "Olive groves",
+      ],
+
+      "location": [
+          "Italy"
+          ]
+        }
+    }
